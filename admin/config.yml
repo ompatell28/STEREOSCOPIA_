@@ -2,8 +2,9 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: ""
-public_folder: ""
+# Photos save karne ka sahi raasta (Fixed)
+media_folder: "images"
+public_folder: "/images"
 
 collections:
   - name: "portfolio"
