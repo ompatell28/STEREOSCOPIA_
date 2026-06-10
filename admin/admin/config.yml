@@ -1,0 +1,18 @@
+backend:
+  name: git-gateway
+  branch: main # Agar aapki GitHub branch ka naam master hai toh yahan master likhein
+
+# Photos is folder ke andar automatic save hongi
+media_folder: "gallery-uploads"
+public_folder: "gallery-uploads"
+
+collections:
+  - name: "portfolio"
+    label: "Portfolio Gallery"
+    folder: "content/portfolio"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Project Title", name: "title", widget: "string" }
+      - { label: "Upload Image", name: "image", widget: "image" }
+      - { label: "Category / Tag", name: "tag", widget: "string", default: "WEB DEVELOPMENT" }
