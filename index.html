@@ -7,14 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght=700;800&family=Space+Grotesk:wght=300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- 1. NETLIFY IDENTITY WIDGET (ADDED) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
     <canvas id="animation-canvas"></canvas>
-    
     <div class="custom-cursor"></div>
 
     <nav class="cyber-nav">
@@ -26,7 +27,7 @@
         
         <section class="panel hero-panel">
             <div class="hero-content">
-                <p id="greetingText">// LOADING TIMELINE</p>
+                <p id="greetingText" class="dynamic-text">// LOADING TIMELINE</p>
                 <h1 class="kinetic-title">MAKE MOMENTS<br><span class="accent-text">IMMORTAL_</span></h1>
                 <div class="scroll-indicator">SCROLL TO DISCOVER INTERFACE // ↓</div>
             </div>
@@ -43,31 +44,19 @@
 
         <section id="work" class="panel gallery-panel">
             <div class="gallery-wrapper">
-                <div class="gallery-track">
+                <div id="dynamic-gallery-grid" class="gallery-track">
                     
                     <div class="future-card">
                         <img src="jama 1.jpeg" class="base-img">
                         <div class="card-tag">JAMA MASJID // 01</div>
                     </div>
-                    
                     <div class="future-card">
                         <img src="raska 2.png" class="base-img">
                         <div class="card-tag">NATURE CORE // 02</div>
                     </div>
-                    
                     <div class="future-card">
                         <img src="sun flower 3.png" class="base-img">
                         <div class="card-tag">PORTRAITURE // 03</div>
-                    </div>
-                    
-                    <div class="future-card">
-                        <img src="wild life 4.png" class="base-img">
-                        <div class="card-tag">WILDLIFE INTERFACE // 04</div>
-                    </div>
-                    
-                    <div class="future-card">
-                        <img src="sun tem 5.jpeg" class="base-img">
-                        <div class="card-tag">SUN TEMPLE // 05</div>
                     </div>
 
                 </div>
@@ -99,7 +88,6 @@
 
     <script src="script.js"></script>
 
-    <!-- 2. NETLIFY POPUP FORCE HANDLER (ADDED) -->
     <script>
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
@@ -109,12 +97,8 @@
             });
           }
         });
-
-        // Email waale link se token aane par popup open karega
         if (document.location.hash.includes("invite_token") || document.location.hash.includes("recovery_token")) {
-          setTimeout(() => {
-            window.netlifyIdentity.open();
-          }, 600);
+          setTimeout(() => { window.netlifyIdentity.open(); }, 600);
         }
       }
     </script>

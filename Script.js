@@ -1,7 +1,6 @@
-// --- 1. BACKGROUND CANVAS HD TRAFFIC MONITOR (Fixed Timing Outside Document Ready) ---
+// --- 1. BACKGROUND CANVAS HD TRAFFIC MONITOR ---
 const canvas = document.getElementById("animation-canvas");
 const context = canvas ? canvas.getContext("2d") : null;
-
 const totalFrames = 269; 
 const currentFrame = index => `ezgif-frame-${index.toString().padStart(3, '0')}.jpg`;
 const dpr = window.devicePixelRatio || 1;
@@ -24,13 +23,8 @@ for (let i = 1; i <= totalFrames; i++) {
     images.push(img);
 }
 
-// Check if first image is already cached or loaded
 if(images[0]) {
-    if (images[0].complete) {
-        resizeCanvas();
-    } else {
-        images[0].onload = resizeCanvas;
-    }
+    if (images[0].complete) { resizeCanvas(); } else { images[0].onload = resizeCanvas; }
 }
 
 function render() {
@@ -71,138 +65,68 @@ function smoothScrollLoop() {
 requestAnimationFrame(smoothScrollLoop);
 window.addEventListener("resize", resizeCanvas);
 
-
-// --- JQUERY DOM DEPENDENT INTERACTION CODES ---
+// --- 3. JQUERY & GSAP DOM CODES ---
 $(document).ready(function() {
-    // GSAP Plugin Register
     gsap.registerPlugin(ScrollTrigger);
 
-    // --- 3. CUSTOM CURSOR TRACKING ---
+    // Custom Cursor
     const cursor = $('.custom-cursor');
     $(document).on('mousemove', function(e) {
-        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" });
+        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
     });
-    $('a, .btn, .tool-card, .portfolio-card, .custom-input').on('mouseenter', function() {
+    $('a, button, .future-card, input, textarea').on('mouseenter', function() {
         cursor.addClass('cursor-hover');
     }).on('mouseleave', function() {
         cursor.removeClass('cursor-hover');
     });
 
-    // --- 4. TYPING TEXT ANIMATION ---
-    const words = ["Developer", "Designer", "Coder"];
-    let wordIndex = 0;
+    // Dynamic Greeting Timeline Text Fix
+    const greetings = ["// IMMERSIVE MULTIMEDIA TERMINAL", "// CAPTURING LIGHT & DEPTH", "// VISUAL MATRIX LOADED"];
+    let greetIndex = 0;
     setInterval(() => {
-        gsap.to(".dynamic-text", { y: -20, opacity: 0, duration: 0.3, onComplete: function() {
-            wordIndex = (wordIndex + 1) % words.length;
-            $('.dynamic-text').text(words[wordIndex]);
-            gsap.fromTo(".dynamic-text", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 });
+        gsap.to(".dynamic-text", { opacity: 0, y: -10, duration: 0.3, onComplete: function() {
+            greetIndex = (greetIndex + 1) % greetings.length;
+            $('.dynamic-text').text(greetings[greetIndex]);
+            gsap.to(".dynamic-text", { opacity: 1, y: 0, duration: 0.3 });
         }});
-    }, 2500);
+    }, 3500);
 
-    // --- 5. SMOOTH NAVIGATION SCROLL ---
-    $('.smooth-scroll, .navbar-nav a').on('click', function(e) {
-        if (this.hash !== "") {
-            e.preventDefault();
-            var hash = this.hash;
-            $('html, body').animate({
-                scrollTop: $(hash).offset().top
-            }, 800);
-        }
+    // GSAP Scroll Trigger Fixes (Lag Shield)
+    gsap.from(".glass-card", {
+        scrollTrigger: { trigger: ".about-panel", start: "top 75%" },
+        opacity: 0, y: 40, duration: 1
     });
 
-    // --- 6. SCROLLTRIGGER ANIMATIONS ---
-    gsap.from(".reveal-text", {
-        scrollTrigger: {
-            trigger: ".about-section",
-            start: "top 70%",
-            toggleActions: "play none none reverse"
-        },
-        opacity: 0,
-        y: 50,
-        duration: 1
-    });
-
-    gsap.from(".tool-card", {
-        scrollTrigger: {
-            trigger: ".tools-section",
-            start: "top 70%"
-        },
-        scale: 0.8,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.2
-    });
-
-    gsap.to(".giant-marquee-text", {
-        scrollTrigger: {
-            trigger: ".contact-section",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1
-        },
-        x: -200
-    });
-
-    // --- 7. DECAP CMS DYNAMIC GALLERY LOADER ---
-    // Imp Note: Change these values to your real details
+    // --- 4. DECAP CMS LIVE GALLERY LOADER (Fixed Folder Path) ---
     const githubUser = "ompatell28"; 
     const githubRepo = "STEREOSCOPIA_"; 
     
     function loadDecapGallery() {
-        const grid = document.getElementById('dynamic-gallery-grid');
-        if (!grid) return;
+        const track = document.getElementById('dynamic-gallery-grid');
+        if (!track) return;
 
-        fetch(`https://api.github.com/repos/${githubUser}/${githubRepo}/contents/gallery-uploads`)
-        .then(response => {
-            if(!response.ok) throw new Error("Empty Pool");
-            return response.json();
-        })
+        // Fetches directly from your config's media folder ("images")
+        fetch(`https://api.github.com/repos/${githubUser}/${githubRepo}/contents/images`)
+        .then(response => { if(!response.ok) throw new Error(); return response.json(); })
         .then(files => {
-            grid.innerHTML = ''; 
             const imageFiles = files.filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file.name));
-
-            if(imageFiles.length === 0) {
-                grid.innerHTML = `<div class="col-12 text-center text-white-50"><p>// NO UPLOADED WORK RECORDS DETECTED IN CLOUD POOL</p></div>`;
-                return;
+            if(imageFiles.length > 0) {
+                track.innerHTML = ''; // Clear defaults if admin uploaded photos exist
+                let count = 1;
+                imageFiles.forEach(file => {
+                    let title = file.name.split('.')[0].replace(/[-_]/g, ' ').toUpperCase();
+                    const card = document.createElement('div');
+                    card.className = 'future-card';
+                    card.innerHTML = `
+                        <img src="${file.download_url}" class="base-img">
+                        <div class="card-tag">${title} // 0${count}</div>
+                    `;
+                    track.appendChild(card);
+                    count++;
+                });
             }
-
-            let indexCounter = 1;
-            imageFiles.forEach(file => {
-                let cleanTitle = file.name.split('.')[0].replace(/[-_]/g, ' ').toUpperCase();
-                if(cleanTitle.length > 20) cleanTitle = cleanTitle.substring(0, 18) + '...';
-
-                const cardColumn = document.createElement('div');
-                cardColumn.className = 'col-lg-4 col-md-6';
-                
-                cardColumn.innerHTML = `
-                    <div class="portfolio-card">
-                        <div class="portfolio-img-wrapper">
-                            <img src="${file.download_url}" alt="${cleanTitle}">
-                        </div>
-                        <span>// RECENT RELEASE 0${indexCounter}</span>
-                        <h3>${cleanTitle}</h3>
-                    </div>
-                `;
-                grid.appendChild(cardColumn);
-                indexCounter++;
-            });
-
-            // Trigger dynamic entrance using GSAP
-            gsap.from(".portfolio-card", {
-                scrollTrigger: {
-                    trigger: "#dynamic-gallery-grid",
-                    start: "top 80%"
-                },
-                y: 40,
-                opacity: 0,
-                duration: 0.6,
-                stagger: 0.15
-            });
         })
-        .catch(err => {
-            grid.innerHTML = `<div class="col-12 text-center text-white-50"><p>// STANDBY: REPOSITORY POOL INITIALIZATION REQUIRED</p></div>`;
-        });
+        .catch(err => { console.log("Using local fallback assets"); });
     }
-
     loadDecapGallery();
 });
