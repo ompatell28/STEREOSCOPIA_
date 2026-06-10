@@ -1,0 +1,17 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: ""
+public_folder: ""
+
+collections:
+  - name: "portfolio"
+    label: "Portfolio Gallery"
+    folder: "data/portfolio"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Project Title", name: "title", widget: "string" }
+      - { label: "Project Image", name: "image", widget: "image" }
+      - { label: "Cyber Tag", name: "tag", widget: "string" }
