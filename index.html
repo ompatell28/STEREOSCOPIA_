@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STEREOSCOPIA_ | Cinematic Interface</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght=700;800&family=Space+Grotesk:wght=300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    
+    <!-- 1. NETLIFY IDENTITY WIDGET (ADDED) -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
 
@@ -95,5 +98,25 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <!-- 2. NETLIFY POPUP FORCE HANDLER (ADDED) -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+
+        // Email waale link se token aane par popup open karega
+        if (document.location.hash.includes("invite_token") || document.location.hash.includes("recovery_token")) {
+          setTimeout(() => {
+            window.netlifyIdentity.open();
+          }, 600);
+        }
+      }
+    </script>
 </body>
 </html>
