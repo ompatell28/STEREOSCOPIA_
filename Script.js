@@ -129,29 +129,25 @@ $(document).ready(function() {
         .catch(err => { console.log("Using local fallbacks"); });
     }
     loadDecapGallery();
-});
-// --- 4. CYBER FORM TRANSMISSION HANDLER (In-Form Success Message) ---
+
+    // --- 4. CYBER FORM TRANSMISSION HANDLER (Sits inside document ready) ---
     $('.contact-form').on('submit', function(e) {
-        e.preventDefault(); // Page refresh rokega
+        e.preventDefault();
 
         const form = $(this);
         const submitBtn = form.find('.cyber-btn');
         const statusMsg = form.find('.form-status-msg');
-        
-        // Netlify Forms submit trigger action
         let formData = new FormData(this);
 
         submitBtn.text("TRANSMITTING DATA...");
         submitBtn.css("pointer-events", "none");
 
-        // Netlify background process ko submit data bhejna
         fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams(formData).toString(),
         })
         .then(() => {
-            // Success: Saare inputs ko smoothly gayab karke form ke andar hi message dikhana
             form.find('.cyber-input, .cyber-btn').fadeOut(300, function() {
                 statusMsg.html("// TRANSMISSION SUCCESSFUL:<br><br>YOUR INQUIRY MATRIX HAS BEEN SECURED IN OUR NODE.<br>WE WILL ESTABLISH LINK SHORTLY.").fadeIn(400);
             });
@@ -162,4 +158,4 @@ $(document).ready(function() {
             submitBtn.css("pointer-events", "auto");
         });
     });
-    
+});
