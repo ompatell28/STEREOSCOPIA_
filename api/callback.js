@@ -23,33 +23,37 @@ export default async function handler(req, res) {
       return res.status(400).send(`OAuth Error: ${data.error_description}`);
     }
 
-    // Security check bypass karne ke liye generic targetOrigin postMessage
+    // Decap CMS standard postMessage execution structure
     const content = `
       <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <title>Authorization Success</title>
-      </head>
+      <html>
+      <head><title>Authorization Success</title></head>
       <body>
-        <p>Authenticating... Please wait.</p>
+        <p>Signing in... please wait.</p>
         <script>
-          const postMessageArgs = {
-            authorizing: false,
-            provider: 'github',
-            token: '${data.access_token}'
-          };
-          
-          // Dono tarike se data transmit karenge taaki browser block na kare
-          window.opener.postMessage('authorization:github:success:' + JSON.stringify(postMessageArgs), '*');
-          
-          setTimeout(() => {
+          (function() {
+            function recieveMessage(e) {
+              console.log("Recieved message:", e);
+            }
+            window.addEventListener("message", recieveMessage, false);
+            
+            const messageConfig = {
+              authorizing: false,
+              provider: 'github',
+              token: '${data.access_token}'
+            };
+            
+            // Handshake protocols dono broad aur target origins par bhej rahe hain
+            window.opener.postMessage('authorization:github:success:' + JSON.stringify(messageConfig), window.location.origin);
+            window.opener.postMessage('authorization:github:success:' + JSON.stringify(messageConfig), '*');
+            
             window.close();
-          }, 500);
+          })();
         </script>
       </body>
       </html>
     `;
+    
     res.setHeader('Content-Type', 'text/html');
     res.status(200).send(content);
   } catch (error) {
