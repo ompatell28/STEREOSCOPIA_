@@ -3,7 +3,7 @@ backend:
   repo: ompatell28/STEREOSCOPIA_
   branch: main
   base_url: https://stereoscopia.vercel.app
-  auth_endpoint: /api/auth
+  auth_endpoint: api/auth
 
 media_folder: "images"
 public_folder: "/images"
