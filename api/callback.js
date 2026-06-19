@@ -23,17 +23,32 @@ export default async function handler(req, res) {
       return res.status(400).send(`OAuth Error: ${data.error_description}`);
     }
 
-    // Decap CMS ko login complete karne ke liye script inject karna
+    // Security check bypass karne ke liye generic targetOrigin postMessage
     const content = `
-      <script>
-        const postMessageArgs = {
-          authorizing: false,
-          provider: 'github',
-          token: '${data.access_token}'
-        };
-        window.opener.postMessage('authorization:github:success:' + JSON.stringify(postMessageArgs), window.location.origin);
-        window.close();
-      </script>
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>Authorization Success</title>
+      </head>
+      <body>
+        <p>Authenticating... Please wait.</p>
+        <script>
+          const postMessageArgs = {
+            authorizing: false,
+            provider: 'github',
+            token: '${data.access_token}'
+          };
+          
+          // Dono tarike se data transmit karenge taaki browser block na kare
+          window.opener.postMessage('authorization:github:success:' + JSON.stringify(postMessageArgs), '*');
+          
+          setTimeout(() => {
+            window.close();
+          }, 500);
+        </script>
+      </body>
+      </html>
     `;
     res.setHeader('Content-Type', 'text/html');
     res.status(200).send(content);
