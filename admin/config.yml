@@ -2,6 +2,8 @@ backend:
   name: github
   repo: ompatell28/STEREOSCOPIA_
   branch: main
+  base_url: https://api.decapcms.org
+  auth_endpoint: /auth/
 
 media_folder: "images"
 public_folder: "/images"
