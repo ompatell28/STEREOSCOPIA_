@@ -2,6 +2,8 @@
 const canvas = document.getElementById("animation-canvas");
 const context = canvas ? canvas.getContext("2d") : null;
 const totalFrames = 269; 
+
+// 🚨 CASE-SENSITIVITY SAFE PATH LOADER
 const currentFrame = index => `ezgif-frame-${index.toString().padStart(3, '0')}.jpg`;
 const dpr = window.devicePixelRatio || 1;
 
@@ -63,11 +65,11 @@ function smoothScrollLoop() {
 requestAnimationFrame(smoothScrollLoop);
 window.addEventListener("resize", resizeCanvas);
 
-// --- 2. JQUERY AND GSAP INTERACTIVE LOGIC ---
+// --- 2. INTERACTIVE DOM ENGINE ---
 $(document).ready(function() {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Custom Cursor
+    // Custom Cursor Tracker
     const cursor = $('.custom-cursor');
     $(document).on('mousemove', function(e) {
         gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
@@ -78,7 +80,7 @@ $(document).ready(function() {
         cursor.removeClass('cursor-hover');
     });
 
-    // Dynamic Text Changer
+    // Dynamic Text Matrix
     const words = ["// IMMERSIVE MULTIMEDIA TERMINAL", "// CAPTURING LIGHT & DEPTH", "// VISUAL MATRIX LOADED"];
     let wordIndex = 0;
     setInterval(() => {
@@ -89,13 +91,13 @@ $(document).ready(function() {
         }});
     }, 3000);
 
-    // About Card Scroll Animation
+    // GSAP Panel Reveal Animation
     gsap.from(".about-card", {
         scrollTrigger: { trigger: ".about-panel", start: "top 75%" },
         opacity: 0, y: 40, duration: 1
     });
 
-    // --- 3. CLOUD DECAP CMS GALLERY LIVE LOADER ---
+    // --- 3. GALLERY API CONNECTOR ---
     const githubUser = "ompatell28"; 
     const githubRepo = "STEREOSCOPIA_"; 
     
@@ -130,7 +132,7 @@ $(document).ready(function() {
     }
     loadDecapGallery();
 
-    // --- 4. CYBER FORM TRANSMISSION HANDLER (Sits inside document ready) ---
+    // --- 4. FORM TRANSACTION MANAGER ---
     $('.contact-form').on('submit', function(e) {
         e.preventDefault();
 

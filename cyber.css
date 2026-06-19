@@ -1,4 +1,4 @@
-/* 🚀 1. IMPORTING THE EXACT EXTENDED WIDE FONT FROM YOUR SCREENSHOT */
+/* 🚀 IMPORTING THE EXACT EXTENDED WIDE FONT */
 @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap');
 
 :root {
@@ -27,7 +27,6 @@ body {
     overflow-x: hidden;
 }
 
-/* 🚀 FIX: LOGO NOW USES THE PREMIUM WIDE FONT */
 .logo { 
     font-family: 'Syncopate', sans-serif !important;
     font-weight: 700; 
@@ -40,14 +39,12 @@ h1, h2, h3 {
     font-weight: 800; 
 }
 
-/* MAIN CONTAINER */
 .main-container {
     position: relative;
     width: 100%;
     z-index: 1;
 }
 
-/* FIXED HD CANVAS BACKGROUND */
 #animation-canvas {
     position: fixed;
     top: 0; left: 0;
@@ -58,7 +55,6 @@ h1, h2, h3 {
     image-rendering: crisp-edges;
 }
 
-/* LIQUID CURSOR */
 .custom-cursor {
     width: 8px; height: 8px;
     background: var(--accent);
@@ -71,7 +67,6 @@ h1, h2, h3 {
     transition: width 0.2s, height 0.2s;
 }
 
-/* FIXED NAVBAR (100% BLUR-FREE & TRANSPARENT) */
 .cyber-nav {
     position: fixed;
     top: 0; width: 100%;
@@ -94,7 +89,6 @@ h1, h2, h3 {
     font-weight: 500; 
 }
 
-/* PANELS STYLING */
 .panel {
     min-height: 100vh;
     width: 100vw;
@@ -112,12 +106,11 @@ h1, h2, h3 {
     margin-bottom: 1.5rem; 
 }
 
-/* 🚀 FIX: HERO TITLE NOW USES THE ULTRA-WIDE EXTENDED FONT EXACTLY LIKE THE SS */
 .kinetic-title { 
     font-family: 'Syncopate', sans-serif !important;
     font-weight: 700;
-    font-size: clamp(2rem, 6.5vw, 6.8rem); /* Choude font ke hisab se perfect sizing */
-    line-height: 0.95; /* Lines ko ek-dusre ke paas laane ke liye */
+    font-size: clamp(2rem, 6.5vw, 6.8rem); 
+    line-height: 0.95; 
     letter-spacing: 0px;
     text-transform: uppercase;
     margin: 25px 0;
@@ -125,7 +118,7 @@ h1, h2, h3 {
 
 .accent-text { 
     color: transparent; 
-    -webkit-text-stroke: 1px #ffffff; /* Khokhla outline look wapas lock */
+    -webkit-text-stroke: 1px #ffffff; 
 }
 .scroll-indicator { 
     margin-top: clamp(3rem, 8vw, 5rem); 
@@ -134,7 +127,6 @@ h1, h2, h3 {
     opacity: 0.4; 
 }
 
-/* GLASSMORPHIC CARDS (Aapka Inquiry aur About form jaisa pehle tha wahi hai) */
 .glass-card {
     background: rgba(255, 255, 255, 0.01);
     backdrop-filter: blur(20px);
@@ -146,7 +138,6 @@ h1, h2, h3 {
 }
 .card-header { font-size: clamp(0.65rem, 1.2vw, 0.75rem); color: var(--accent); margin-bottom: 1.5rem; letter-spacing: 2px; }
 
-/* 🚀 ABOUT HEADINGS ALSO SATEEK ALIGNED WITH THE WIDE FONT */
 .glass-card h2, .glass-card h3 { 
     font-family: 'Syncopate', sans-serif !important;
     font-weight: 700;
@@ -157,13 +148,6 @@ h1, h2, h3 {
 .glass-card p { line-height: 1.7; color: #ccc; font-weight: 300; font-size: clamp(0.95rem, 1.5vw, 1.05rem); }
 .signature-cyber { margin-top: 2rem; font-size: 0.8rem; color: var(--accent); letter-spacing: 1px; }
 
-/* CYBER METRICS */
-.cyber-stats { display: flex; gap: clamp(2.5rem, 6vw, 6rem); flex-wrap: wrap; max-width: 1200px; width: 100%; justify-content: center; }
-.stat-box { display: flex; flex-direction: column; text-align: center; }
-.stat-num { font-size: clamp(3rem, 7vw, 6rem); font-weight: 800; line-height: 1; color: #fff; }
-.stat-lbl { font-size: clamp(0.65rem, 1.2vw, 0.75rem); color: var(--accent); letter-spacing: 2px; margin-top: 0.8rem; }
-
-/* CLEAN HORIZONTAL SWIPE GALLERY (Original structure untouched) */
 .gallery-panel {
     width: 100vw;
     min-height: 80vh; 
@@ -188,7 +172,6 @@ h1, h2, h3 {
     padding-right: 10vw; 
 }
 
-/* Future Card - Sits beautifully on gold accents */
 .future-card {
     flex-shrink: 0;
     width: 350px; 
@@ -224,7 +207,6 @@ h1, h2, h3 {
     border: 1px solid var(--border); z-index: 10;
 }
 
-/* MODERN FORM INPUTS (Pehele ka inquiry inputs exact safe) */
 .cyber-input {
     width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.1);
     padding: 1rem 0; color: #fff; font-family: inherit; outline: none; margin-bottom: 1.5rem; font-size: 1rem; transition: border-color 0.3s;
@@ -236,22 +218,19 @@ h1, h2, h3 {
 }
 .cyber-btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 30px rgba(212, 175, 55, 0.4); }
 
-/* SOCIALS & FOOTER TERMINAL */
 .social-links { margin-top: 2.5rem; display: flex; justify-content: center; gap: 30px; }
 .social-icon { font-size: 1.8rem; color: #fff; transition: 0.3s; }
 .social-icon:hover { color: var(--accent); transform: translateY(-3px); }
 footer { padding: 2.5rem 5%; text-align: center; color: rgba(255,255,255,0.3); font-size: 0.75rem; letter-spacing: 1px; background: #000; border-top: 1px solid rgba(255,255,255,0.05); }
 
-/* UNIVERSAL RESPONSIVE MEDIA QUERIES */
+/* RESPONSIVE DESIGN */
 @media (max-width: 1024px) {
     .future-card { width: 280px; height: 400px; }
-    .cyber-stats { gap: 4rem; }
 }
 @media (max-width: 768px) {
     * { cursor: auto !important; }
     .custom-cursor { display: none !important; }
     .panel { padding: 12vh 6% 6vh 6%; }
-    .cyber-stats { gap: 3rem; flex-direction: column; align-items: center; }
     .future-card { width: 65vw; height: 45vh; }
     .card-tag { bottom: 1rem; left: 1rem; padding: 0.4rem 0.8rem; }
 }
